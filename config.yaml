@@ -1,0 +1,46 @@
+universe:
+  index: sp500
+  mode: historical
+  source_priority:
+  - github_csv
+  - stooq_html
+  - wikipedia_html
+  cache_path: data/universe/sp500_latest.csv
+  cache_max_age_days: 7
+  historical_source_priority:
+  - github_historical_csv
+  historical_cache_path: data/universe/sp500_membership_history.csv
+  historical_cache_max_age_days: 30
+  membership_asof_policy: rebalance_date
+  min_price_coverage_pct: 0.85
+  on_missing_price: drop
+  freeze_universe_at_start: false
+  request_timeout_seconds: 20
+  max_tickers: 30
+dates:
+  start: '2021-01-01'
+  end: '2024-12-31'
+portfolio:
+  rebalance: M
+  quantile: 0.2
+  long_short: false
+  weighting: equal
+  transaction_cost_bps: 10
+signals:
+  momentum_lookback_months: 12
+  momentum_skip_days: 21
+  lowvol_window_days: 60
+benchmark:
+  ticker: SPY
+  source: stooq
+paths:
+  universe_csv: data/processed/universe.csv
+  prices_parquet: data/processed/prices.parquet
+  returns_parquet: data/processed/returns.parquet
+  monthly_returns_csv: outputs/tables/monthly_returns.csv
+  performance_csv: outputs/tables/performance_summary.csv
+  regression_csv: outputs/tables/factor_regression.csv
+  turnover_csv: outputs/tables/turnover_costs.csv
+  holdings_csv: outputs/tables/top_holdings.csv
+  coverage_csv: outputs/tables/universe_coverage.csv
+  report_md: outputs/report.md
